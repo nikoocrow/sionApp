@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:sion_app/models/models.dart';
 
 
 class VimeoCard extends StatelessWidget {
 
+  final Videos  videos;
+
+  const VimeoCard({
+    super.key,
+     required this.videos
+   }); 
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +24,11 @@ class VimeoCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            _BackgroundImage(),
-            _VideoDetails()
+            _BackgroundImage(videos.tumbnail),
+            _VideoDetails(
+              title: videos.titulo,
+               date: videos.fecha,
+            )
           ],
         ),
         
@@ -44,6 +54,16 @@ class VimeoCard extends StatelessWidget {
 class _VideoDetails extends StatelessWidget {
 
 
+
+  final String title;
+  final String date;
+
+  const _VideoDetails({
+    required this.title,
+    required this.date
+  });
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,13 +77,13 @@ class _VideoDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Servicio dominical',
+                title, // Titulo del video va aqui
                  style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                  maxLines: 1,
                  overflow: TextOverflow.ellipsis,
                  ),
                    Text(
-                '23 de Octubre',
+                 date,  //FECHA VA AQUI
                  style: TextStyle(fontSize: 15, color: Colors.white),
                  ),
             ],
@@ -80,18 +100,28 @@ class _VideoDetails extends StatelessWidget {
 
 class _BackgroundImage extends StatelessWidget {
 
+   final String? url;
+
+  const _BackgroundImage(this.url);
 
   @override
   Widget build(BuildContext context) {
-
-
-    return Container(
-      width: double.infinity,
-      height: 250,
-      child: FadeInImage(
-        placeholder: AssetImage('assets/Rolling.gif'),
-        image: AssetImage('assets/video_placeholder.png'),
-      
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(25),
+      child: Container(
+        width: double.infinity,
+        height: 250,
+        child: FadeInImage(
+          placeholder: AssetImage('assets/video_placeholder.png'),
+          imageErrorBuilder: (BuildContext context, Object obj, stackTrace){
+              return Image(image: AssetImage('assets/video_placeholder.png'),
+              fit: BoxFit.cover
+              );
+         },
+        image: NetworkImage(url.toString()),
+        fit: BoxFit.cover
+      )
+         
       ),
     );
   }

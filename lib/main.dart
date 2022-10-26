@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:sion_app/screens/anuncios.dart';
-import 'package:sion_app/screens/home.dart';
-import 'package:sion_app/screens/login_screen.dart';
-import 'package:sion_app/screens/palabras.dart';
-import 'package:sion_app/screens/player_list_screen.dart';
-import 'package:sion_app/screens/user_settings.dart';
+import 'package:provider/provider.dart';
 import 'package:sion_app/screens/screens.dart';
-import 'package:sion_app/screens/vimeo_player_screen.dart';
+import 'package:sion_app/services/services.dart';
 import 'package:sion_app/theme/tema.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp(AppState());
+
+
+class AppState extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+          ChangeNotifierProvider(create: (_) => VideosServices())
+      ],
+      child: MyApp(),
+      
+      );
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override

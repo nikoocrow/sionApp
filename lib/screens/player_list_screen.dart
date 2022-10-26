@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sion_app/widgets/vimeo_card.dart';
-import 'package:sion_app/widgets/vimeo_player_widget.dart';
-import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:sion_app/services/videos_services.dart';
+import 'package:sion_app/widgets/widgets.dart';
+import 'package:sion_app/screens/screens.dart';
+import 'package:sion_app/services/services.dart';
+
+
 
 
 
@@ -11,6 +15,9 @@ class PlayerListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final  videosService = Provider.of<VideosServices>(context);
+    if(videosService.isloading)  return LoadingScreen();
+
 
 
     return Scaffold(
@@ -19,10 +26,15 @@ class PlayerListScreen extends StatelessWidget {
         title: Text('Servicios'),
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: videosService.videos.length,
         itemBuilder: (BuildContext context, int index) => GestureDetector(
-          onTap: () => Navigator.pushNamed( context , 'vimeo_player'),
-          child: VimeoCard()
+          onTap: (){
+            videosService.selectedVideo = videosService.videos[index];
+            Navigator.pushNamed( context , 'vimeo_player');
+          },
+          child: VimeoCard(
+            videos: videosService.videos[index],
+          )
         ),
       ),
     );

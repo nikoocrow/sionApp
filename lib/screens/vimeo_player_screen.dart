@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sion_app/services/services.dart';
 import 'package:sion_app/widgets/vimeo_player_widget.dart';
+import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
 
 
 class VimeoPlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final videoServices = Provider.of<VideosServices>(context);
+
+    final String videoId = videoServices.selectedVideo!.vimeoId.toString();
+
     return  Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -16,8 +24,12 @@ class VimeoPlayerScreen extends StatelessWidget {
           },
         ),
       ),
-      body: VimeoPlayerWidget()
+      body: VimeoPlayer(
+                videoId: videoId.toString(),
+               
+        )
     );
+    print(videoId);
    
   }
 }
