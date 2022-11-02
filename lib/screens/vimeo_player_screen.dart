@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sion_app/services/services.dart';
-import 'package:sion_app/widgets/vimeo_player_widget.dart';
+import 'package:sion_app/theme/tema.dart';
 import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
 
 
@@ -15,6 +15,7 @@ class VimeoPlayerScreen extends StatelessWidget {
     final String videoId = videoServices.selectedVideo!.vimeoId.toString();
 
     return  Scaffold(
+      backgroundColor: miTema.colorScheme.secondary,
       appBar: AppBar(
         title: Text(''),
         leading: IconButton(

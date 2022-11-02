@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: miTema,
-      initialRoute: 'home',
+      initialRoute: 'login',
       routes: {
         'home'         : ( _ ) =>HomeScreen(), 
         'player_list'  : ( _ ) => PlayerListScreen(),
