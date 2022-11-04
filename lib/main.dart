@@ -15,7 +15,10 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+          
+          ChangeNotifierProvider(create: (_) => AuthServices()),
           ChangeNotifierProvider(create: (_) => VideosServices())
+
       ],
       child: MyApp(),
       
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: NotificationsServices.messengerKey,
       debugShowCheckedModeBanner: false,
       theme: miTema,
       initialRoute: 'login',
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
         'palabras'     : ( _ ) => PalabrasScreen(),
         'anuncios'     : ( _ ) => AnunciosScreen(),
         'user_settings': ( _ ) => UserSettingsScreen(), 
+        'checking'     : ( _ ) => CheckcAuthScreen(), 
         'login'        : ( _ ) => LoginScreen(),
       },
    

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -31,7 +33,7 @@ class AuthBackgroundWidget extends StatelessWidget {
                  child: Container(
                    child: child,
                    width: double.infinity,
-                   height: 570,
+                   height: 470,
                    color: Colors.grey[300],
                  ),
                ),
@@ -85,7 +87,7 @@ class  _loginBackground extends StatelessWidget {
       ),
   
       width: double.infinity,
-      height:500,
+      height: double.infinity,
       
     );
   }

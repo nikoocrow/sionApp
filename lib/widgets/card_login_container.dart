@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sion_app/providers/login_form_provider.dart';
+import 'package:sion_app/services/services.dart';
 import 'package:sion_app/ui/inputs_decorations.dart';
 import 'package:provider/provider.dart';
 
@@ -144,16 +145,31 @@ class _Formulario extends StatelessWidget {
                 onPressed: loginForm.isLoading ? null : () async{
 
                   FocusScope.of(context).unfocus();
-                  loginForm.isValidForm();
+                  final authServices = Provider.of<AuthServices>(context, listen: false);
+
                   if(!loginForm.isValidForm()) return;
 
                  loginForm.isLoading = true;
-                 await Future.delayed(Duration(seconds: 2));
+     
                  //TODO VALIDAR SI EL LOGIN ES CORRECTO
-                 loginForm.isLoading = false;
 
-                 Navigator.pushReplacementNamed(context, 'home');
+                final String? errorMessage = await authServices.login(loginForm.email, loginForm.password); 
+               
+                if(errorMessage == null){
+                      Navigator.pushReplacementNamed(context, 'home');
+                }else {
+                  print(errorMessage);
+
+                  // if(errorMessage.length != null){
+
+                  //   errorMessage = 'jañj';
+                  // }
+                  NotificationsServices.showSnackbar(errorMessage);
                 }
+
+              loginForm.isLoading = false;
+             
+              }
                 
                      ),
              )

@@ -16,6 +16,10 @@ class PlayerListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final  videosService = Provider.of<VideosServices>(context);
+    final  authServices =  Provider.of<AuthServices>(context, listen: false);
+
+
+
     if(videosService.isloading)  return LoadingScreen();
 
 
@@ -24,6 +28,18 @@ class PlayerListScreen extends StatelessWidget {
      
       appBar: AppBar(
         title: Text('Servicios'),
+        actions:[ 
+          IconButton(
+          icon: Icon(Icons.logout_outlined),
+
+          onPressed: () async {
+
+            await authServices.logout();
+            Navigator.pushReplacementNamed(context, 'login');
+
+          }
+         ),
+       ]
       ),
       
       body: ListView.builder(
